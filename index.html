@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dominik Kaufmann – Freier Redakteur | Gaming</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg:        #0a0a0f;
+      --surface:   #12121a;
+      --border:    #1e1e2e;
+      --accent:    #4ade80;
+      --accent2:   #06b6d4;
+      --text:      #e2e8f0;
+      --muted:     #64748b;
+      --glow:      rgba(74, 222, 128, 0.30);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background:
+        radial-gradient(ellipse at 20% 15%, rgba(74, 222, 128, 0.13) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 85%, rgba(6, 182, 212, 0.09) 0%, transparent 50%),
+        linear-gradient(155deg, #091428 0%, #0d0d16 45%, #091a0d 100%);
+      background-attachment: fixed;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Background Grid ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          45deg,
+          rgba(74, 222, 128, 0.07) 0px,
+          rgba(74, 222, 128, 0.07) 1px,
+          transparent 1px,
+          transparent 40px
+        ),
+        repeating-linear-gradient(
+          -45deg,
+          rgba(74, 222, 128, 0.07) 0px,
+          rgba(74, 222, 128, 0.07) 1px,
+          transparent 1px,
+          transparent 40px
+        );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Layout ── */
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem 6rem;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 0 0 4px var(--surface), 0 0 32px var(--glow);
+      overflow: hidden;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero .tagline {
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .availability {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(6, 182, 212, 0.08);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      color: var(--accent2);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.35rem 0.9rem;
+      border-radius: 100px;
+      letter-spacing: 0.04em;
+    }
+
+    .availability::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent2);
+      box-shadow: 0 0 6px var(--accent2);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.4; }
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .card:hover {
+      border-color: rgba(74, 222, 128, 0.4);
+    }
+
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    /* ── Bio ── */
+    .bio p {
+      color: #94a3b8;
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+
+    /* ── Skills ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .skill-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background: rgba(74, 222, 128, 0.06);
+      border: 1px solid rgba(74, 222, 128, 0.15);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .skill-item:hover {
+      background: rgba(74, 222, 128, 0.12);
+      border-color: rgba(74, 222, 128, 0.35);
+    }
+
+    .skill-icon {
+      font-size: 1.2rem;
+      line-height: 1;
+      margin-top: 0.1rem;
+    }
+
+    .skill-text strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.15rem;
+    }
+
+    .skill-text span {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* ── Links / Profile ── */
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .profile-link {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.9rem 1.1rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+
+    .profile-link:hover {
+      background: rgba(74, 222, 128, 0.1);
+      border-color: rgba(74, 222, 128, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .profile-link .link-icon {
+      font-size: 1.1rem;
+      width: 28px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .profile-link .link-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-link .link-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    /* ── Contact ── */
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+
+    .contact-item .icon { font-size: 1rem; }
+
+    .contact-item a {
+      color: var(--accent2);
+      text-decoration: none;
+    }
+
+    .contact-item a:hover { text-decoration: underline; }
+
+    .divider {
+      color: var(--border);
+      user-select: none;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 500px) {
+      .skills-grid, .links-grid { grid-template-columns: 1fr; }
+      .contact-row { flex-direction: column; align-items: flex-start; }
+      .divider { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="avatar"><img src="Dominik-Foto-Comic.jpg" alt="Dominik Kaufmann"></div>
+    <h1><span>Dominik Kaufmann</span></h1>
+    <p class="tagline">Freier Redakteur in der Gaming-Branche</p>
+    <span class="availability">Verfügbar für Aufträge</span>
+  </header>
+
+  <!-- Bio -->
+  <section class="card bio">
+    <p class="card-title">Über mich</p>
+    <p>
+      Seit sechs Jahren erstelle ich hochwertige Inhalte für die Gaming-Welt. Die Schwerpunkte meiner Arbeit bilden aktuelle News, hilfreiche Tipps-Beiträge und fundierte Angespielt-Artikel. Mein Anspruch ist eine Berichterstattung, welche die Relevanz von Videospielen unterstreicht. Für mich sind Videospiele mehr als Unterhaltung, sondern ein zentrales Element unserer modernen Kultur.
+    </p>
+  </section>
+
+  <!-- Tätigkeitsbereiche -->
+  <section class="card">
+    <p class="card-title">Tätigkeitsbereiche</p>
+    <div class="skills-grid">
+      <div class="skill-item">
+        <span class="skill-icon">📰</span>
+        <div class="skill-text">
+          <strong>News-Artikel</strong>
+          <span>Aktuelle Gaming-Geschehnisse</span>
+        </div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-icon">🎮</span>
+        <div class="skill-text">
+          <strong>Tipps &amp; Tricks</strong>
+          <span>Guides zu angesagten Spielen</span>
+        </div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-icon">🎬</span>
+        <div class="skill-text">
+          <strong>Shorts &amp; Videos</strong>
+          <span>Aktuelle Themen aufbereitet</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Profil-Links -->
+  <section class="card">
+    <p class="card-title">Autoren-Profile</p>
+    <div class="links-grid">
+      <a href="https://www.play3.de/author/dominik-kaufmann/" target="_blank" rel="noopener" class="profile-link">
+        <span class="link-icon">🎮</span>
+        <span class="link-info">
+          <span>play3.de</span>
+          <span class="link-label">Autorenprofil</span>
+        </span>
+      </a>
+      <a href="https://blog.de.playstation.com/author/dominik-kaufmann/" target="_blank" rel="noopener" class="profile-link">
+        <span class="link-icon">🎯</span>
+        <span class="link-info">
+          <span>PlayStation Blog</span>
+          <span class="link-label">Autorenprofil</span>
+        </span>
+      </a>
+      <a href="https://www.realtotal.de/author/dominikkaufmann/" target="_blank" rel="noopener" class="profile-link">
+        <span class="link-icon">📡</span>
+        <span class="link-info">
+          <span>realtotal.de</span>
+          <span class="link-label">Autorenprofil</span>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Kontakt -->
+  <section class="card">
+    <p class="card-title">Kontakt</p>
+    <div class="contact-row">
+      <div class="contact-item">
+        <span class="icon">✉️</span>
+        <a href="mailto:dominik.kaufmann.95@gmail.com">dominik.kaufmann.95@gmail.com</a>
+      </div>
+      <span class="divider">·</span>
+      <div class="contact-item">
+        <span class="icon">📍</span>
+        <span>Frankfurt am Main</span>
+      </div>
+      <span class="divider">·</span>
+      <div class="contact-item">
+        <span class="icon">🌐</span>
+        <span>DE</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2026 Dominik Kaufmann &nbsp;·&nbsp; Freier Redakteur
+  </footer>
+
+</div>
+</body>
+</html>
